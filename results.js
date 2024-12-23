@@ -2,8 +2,8 @@ const results = [
   [
     "Basketball",
     [
-      "/hsfm/blob/gh-pages/viser-embed/",
-      "?playbackPath=/hsfm/blob/gh-pages/splash-results/basketball.viser",
+      "/viser-embed/",
+      "?playbackPath=/splash-results/basketball.viser",
       // "&synchronizedVideoOverlay=/splash-results/feb28_coffeemachine.mp4",
       // "&synchronizedVideoTimeOffset=-0.05",
       "&initialCameraPosition=14.0,18.0,6.0",
