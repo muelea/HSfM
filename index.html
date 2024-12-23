@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>HSfM</title>
+    <meta
+      content="We integrate Human Mesh Reconstruction and Structure from Motion."
+      name="description"
+    />
+    <meta charset="UTF-8" />
+    <link href="./favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+
+    <meta property="og:title" content="HSfM" />
+    <meta
+      property="og:description"
+      content="We integrate Human Mesh Reconstruction and Structure from Motion."
+    />
+    <meta property="og:type" content="website" />
+
+    <meta property="twitter:title" content="HSfM" />
+    <meta
+      property="twitter:description"
+      content="We integrate Human Mesh Reconstruction and Structure from Motion."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Normalize & Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.19.0/tabler-icons-outline.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- KaTeX -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+      integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+      integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-E49FXX81PL"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-E49FXX81PL");
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --font-body: 'Roboto', sans-serif;
+        --color-text: #333;
+        --color-bg: #ffffff;
+        --color-accent: #4a00e0;
+        --color-heading: #222;
+        --max-width: 50rem;
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--color-text);
+        background: var(--color-bg);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Header Section */
+      header {
+        font-family: var(--font-body);
+        padding: 1rem;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.0rem;
+        /* margin: 0 0 0.75em; */
+        color: var(--color-heading);
+        font-family: var(--font-body);
+        font-weight: 700;
+      }
+
+      header p {
+        max-width: var(--max-width);
+        /* margin: 0.5rem auto 0 auto; */
+        color: #ffffff;
+      }
+
+      /* Author and Affiliations */
+      #author-list {
+        text-align: center;
+        font-size: 1.0rem;
+        margin-top: 0.8rem auto;
+        margin-bottom: 0.4rem auto;
+
+      }
+
+      #affiliations {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-top: 0.8rem auto;
+        margin-bottom: 0.4rem auto;
+
+      }
+      #equal-contribution {
+        text-align: center;
+        font-size: 0.8rem;
+        /* margin: 0.5rem auto; */
+      }
+      #author-list a {
+        text-decoration: none;
+        margin: 0 0.5rem;
+        color: rgb(73, 173, 234);
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      #author-list a:hover {
+        color: #000;
+      }
+
+      /* Link Buttons Section */
+      .links {
+        display: flex;
+        justify-content: center;
+        /* gap: 1.5rem  ; */
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .links a {
+        text-decoration: none;
+        color: #444;
+        font-weight: 500;
+        font-size: 0.9rem;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s, color 0.2s;
+      }
+
+      .links a:hover {
+        color: #000;
+        transform: translateY(-2px);
+      }
+
+      .links svg {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Content Sections */
+      .wide {
+        max-width: var(--max-width);
+        padding: 1rem 1rem;
+        margin: 0 auto;
+      }
+
+      .wide h2 {
+        font-size: 1.5rem;
+        margin: 4rem 0 1rem 0;
+        font-weight: 600;
+        color: var(--color-heading);
+      }
+
+      .wide p {
+        font-size: 1rem;
+        color: #444;
+      }
+
+      .wide p strong {
+        color: #000;
+      }
+
+      /* Video Container */
+      video, img {
+        width: 100%;
+        height: auto;
+        display: block;
+        /* box-shadow: 0 0 1em rgba(0,0,0,0.07); */
+        border-radius: 0.25rem;
+        /* margin: 1em 0; */
+      }
+
+      /* Buttons or highlighted elements */
+      button {
+        background: linear-gradient(to right, #2d81e2, rgb(73, 173, 234));
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 2em 0 rgba(255, 255, 50, 1);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      button-copy {
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 2em 0 rgba(255, 255, 50, 1);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      button:hover {
+        transform: scale(1.02);
+      }
+
+      /* Code / Citation Block */
+      code, textarea {
+        background: #fafaf9;
+        padding: 1em;
+        border-radius: 0.5rem;
+        display: block;
+        overflow-x: auto;
+        font-size: 0.875rem;
+      }
+
+      textarea {
+        width: 100%;
+        height: 10rem;
+        border: none;
+      }
+
+      /* Footer spacing */
+      footer {
+        height: 4em;
+      }
+    </style>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+          ],
+          throwOnError: false,
+        });
+      });
+    </script>
+
+  </head>
+
+  <body>
+    <header>
+      <h1>Reconstructing People, Places, and Cameras</h1>
+
+    <div id="author-list">
+      <a href="https://muelea.github.io" target="_blank">Lea M&uuml;ller<sup>*</sup></a>
+      <a href="https://hongsukchoi.github.io/" target="_blank">Hongsuk Choi<sup>*</sup></a>
+      <a href="https://www.linkedin.com/in/anthony-zhang/" target="_blank">Anthony Zhang</a>
+      <a href="https://brentyi.github.io" target="_blank">Brent Yi</a>
+      <a href="https://people.eecs.berkeley.edu/~malik/" target="_blank">Jitendra Malik</a>
+      <a href="https://people.eecs.berkeley.edu/~kanazawa/" target="_blank">Angjoo Kanazawa</a>
+    </div>
+    <br>
+    <div id="affiliations">
+      <div><sup></sup>&nbsp;<b>UC Berkeley</b></div>
+    </div>
+    <div id="equal-contribution">
+      <div><sup>*</sup>&nbsp;equal contribution</div>
+    </div>
+  </header>
+
+    <section class="wide">
+      <p style="text-align: center; max-width: 50em; margin: 0 auto;">
+        <strong>TLDR;</strong> We propose - <i>Humans and Structure from Motion</i> (<b>HSfM</b>) - Our approach integrates Human Mesh Reconstruction and Structure from Motion to jointly estimate 3D human pose and shape, scene point maps, and cameras poses in a metric world coordinate frame. 
+      </p>
+    <div class="links">
+      <a href="">
+        <svg style="width:48px;height:48px" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M16 0H8C6.9 0 6 .9 6 2V18C6 19.1 6.9 20 8 20H20C21.1 20 22 19.1 22 18V6L16 0M20 18H8V2H15V7H20V18M4 4V22H20V24H4C2.9 24 2 23.1 2 22V4H4M10 10V12H18V10H10M10 14V16H15V14H10Z" />
+        </svg>
+        Paper
+      </a>
+    </div>
+      <section>
+        <a href="./results.html" target="_blank" style="position: relative; display: block; overflow: hidden; margin-top: 2em;">
+          <video
+            src="./interactive_demo_01.mov"
+            style="opacity: 50%; display: block"
+            loop
+            autoplay
+            playsinline
+            muted
+            id="interactive-demo-video"
+          ></video>
+          <button
+            style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              whitespace: nowrap;
+            "
+          >
+            <i class="ti ti-hand-click"></i>
+            Click to Open Interactive Results
+          </button>
+        </a>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            var video = document.getElementById("interactive-demo-video");
+            video.playbackRate = 0.6;
+          });
+        </script>
+      </section>
+    </section>
+
+    <section class="wide" id="overview">
+      <br>
+      Our approach places people in the scene and improves camera pose and scene reconstruction. Here we show a top view of gym 
+      environment before HSfM optimization (DUSt3R output) and after optimization with HSfM Loss.
+      <br><br>
+      <img src="./images/scene_topview.png" alt="Reconstruction Result" />
+      
+      <br><br><br>
+      Humans and Structure from Motion enables capturing people interacting with their environment as well as the spatial positioning between individuals.
+      Here we show a reconstruction of three people building Lego together.
+      <br><br>
+      <img src="./images/results.mov" alt="Joint Human and Scene Reconstruction" />
+
+      <h2>Overview</h2>
+      <p>
+        Humans and Structure from Motion (HSfM) is a novel method that jointly reconstructs 
+        3D humans, scene, and cameras from a sparse set of uncalibrated images. 
+        To achieve this, HSfM combines Human Mesh Recovery (HMR) methods for local 
+        human pose estimation and Structure from Motion (SfM) techniques for 
+        scene and camera reconstruction and to localize people. Specifically, our approach combines camera and scene reconstruction from data-driven 
+        SfM methods, such as DUSt3R, with the bundle adjustment step from traditional 
+        SfM applied to 2D keypoints where a human body model provides 3D human meshes and 
+        constrains human size.
+
+      </p>
+      <img src="./images/problem_statement.png" alt="Problem Statement" />
+
+      <h2>Step by Step Method</h2>
+      <ul style="list-style: none; padding-left: 0;">
+        <li style="margin-bottom: 2em;">
+          <strong>Step 1: Input Processing and Feature Extraction</strong><br />
+          From the sparse input images, we extract 2D human joints using VIT-Pose and estimate 3D joint positions and body shape using HMR2. For scene and camera 
+          reconstruction, we use DUSt3R, a state-of-the-art data-driven SfM method. We assume known re-identification of people across camera views.
+          <br><br>
+          <img src="./images/preprocess.png" alt="Input Processing" />
+        </li>
+
+        <li style="margin-bottom: 2em;">
+          <strong>Step 2: Resolving Scale Ambiguity</strong><br />
+          SfM methods often suffer from scale ambiguity. We address this by estimating camera 
+          parameters based on human body size and orientation. After alignment, people are roughly placed in a world of consistent scale.
+          <br><br>
+          <img src="./images/init_state.mov" alt="Initial State" />
+        </li>
+
+        <li style="margin-bottom: 2em;">
+          <strong>Step 3: Joint Human and Scene Reconstruction</strong><br />
+          We adapt the global alignment loss from DUSt3R to jointly estimate humans and the scene. The HSfM loss consists of three terms:
+          a keypoint re-projection term performing bundle adjustment on 2D body joints, a body shape regularizer, and the global alignment loss from DUSt3R.
+          <img src="./images/equation.png" alt="HSfM Loss" />
+        </li>
+      </ul>
+
+      <h2>Evaluation</h2>
+      <p>
+        This joint reasoning not only enables accurate human placement in the scene. Notably, it also improves camera poses and the scene reconstruction itself. Evaluations on public benchmarks show significant improvements. 
+        Here we show the camera angle (RRA) and scaled translation (s-RTA) accuracy in percent at a threshold of 10 degree / meter on the <a href="https://rawalkhirodkar.github.io/egohumans">EgoHumans</a> benchmark.
+      </p>
+      <img src="./images/metrics.png" alt="Joint Human and Scene Reconstruction Metrics" />
+      <!-- <img src="./images/result.mov" alt="Joint Human and Scene Reconstruction" /> -->
+    </section>
+
+    <section class="wide">
+      <h2>Citation</h2>
+      <div style="position: relative; display: inline-block;">
+        <button onclick="copyCitation()" id="copy-button"
+        style="
+          position: absolute; 
+          top: 0.5em; 
+          right: 0.5em; 
+          background: #eaeaea; 
+          border: 1px solid #ccc;
+          box-shadow: 0 0 0 0 rgba(255, 255, 50, 1); 
+          border-radius: 4px; 
+          border-color: #eaeaea;
+          padding: 0.25em 0.5em; 
+          font-size: 0.8rem; 
+          cursor: pointer;
+          transition: background 0.2s, box-shadow 0.2s;
+          color:#000;
+        "
+        onmouseover="this.style.background='#ddd';"
+        onmouseout="this.style.background='#eaeaea'; this.style.boxShadow='none';"
+        onmousedown="this.style.background='#ddd'; this.style.transform='translateY(1px)';"
+        onmouseup="this.style.background='#ddd'; this.style.transform='translateY(0)';"    
+        >Copy</button>
+        <code id="citation-code">
+          @article{mueller2024hsfm,<br />
+          &nbsp;&nbsp;title={Reconstructing People, Cameras, and Places},<br />
+          &nbsp;&nbsp;author={Lea M\"uller and Hongsuk Choi and Anthony Zhang and Brent Yi and Jitendra Malik and Angjoo Kanazawa},<br />
+          &nbsp;&nbsp;year={2024},<br />
+          &nbsp;&nbsp;journal={arXiv preprint},<br />
+          }
+        </code>
+      </div>
+    </section>
+
+    <footer></footer>
+  <!-- </body> -->
+<!-- </html> -->
+
+
+<script>
+  function copyCitation() {
+    const codeElement = document.getElementById('citation-code');
+    const button = document.getElementById('copy-button');
+    const text = codeElement.innerText.trim();
+
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        button.innerText = "Copied!";
+        setTimeout(() => {
+          button.innerText = "Copy";
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error('Failed to copy text:', err);
+      });
+  }
+</script>
+
+</body>
+</html>
